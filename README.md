@@ -211,3 +211,122 @@ To customize the letterhead and logo for your organization:
       </div>
    ```
    - The changes will reflect in all receipts and reports.
+
+## Rent Automation Setup
+
+The system includes an automated rent creation feature that generates rent entries for all active shops on the 1st of every month. Here's how to set it up:
+
+### Prerequisites
+
+1. MySQL/MariaDB server with event scheduler enabled
+2. Database user with EVENT privileges
+
+### Setup Steps
+
+1. **Import Stored Procedure**
+   ```bash
+   mysql -u rentmgr -p rent_manager < database/rent_automation.sql
+   ```
+
+2. **Create Monthly Event**
+   ```sql
+   CREATE EVENT monthly_rent_creation
+   ON SCHEDULE
+      EVERY 1 MONTH
+      STARTS (DATE_FORMAT(CURRENT_DATE(), '%Y-%m-01') + INTERVAL 1 HOUR)
+   DO
+      CALL create_monthly_rents();
+   ```
+
+3. **Enable Event Scheduler**
+   ```sql
+   SET GLOBAL event_scheduler = ON;
+   ```
+
+### Verification Steps
+
+1. **Check Event Scheduler Status**
+   ```sql
+   SHOW VARIABLES LIKE 'event_scheduler';
+   ```
+
+2. **Verify Event Creation**
+   ```sql
+   SHOW EVENTS;
+   ```
+
+3. **Check Procedure Status**
+   ```sql
+   SHOW PROCEDURE STATUS WHERE Name = 'create_monthly_rents';
+   ```
+
+4. **Test Procedure Manually**
+   ```sql
+   CALL create_monthly_rents();
+   ```
+
+### Troubleshooting
+
+- If you encounter issues, check the event scheduler status and the event definition.
+- You can manually trigger the procedure with:
+  ```sql
+  CALL create_monthly_rents();
+  ```
+- Check the `rents` table for new entries after running the procedure.
+
+### Managing the Automation
+
+#### Stopping the Automation
+
+1. **Disable the Event**
+   ```sql
+   ALTER EVENT monthly_rent_creation DISABLE;
+   ```
+2. **Drop the Event**
+   ```sql
+   DROP EVENT monthly_rent_creation;
+   ```
+3. **Disable Event Scheduler**
+   ```sql
+   SET GLOBAL event_scheduler = OFF;
+   ```
+
+#### Re-enabling the Automation
+
+1. **Re-enable the Event**
+   ```sql
+   ALTER EVENT monthly_rent_creation ENABLE;
+   ```
+2. **Re-create the Event** (if dropped)
+   ```sql
+   CREATE EVENT monthly_rent_creation
+   ON SCHEDULE EVERY 1 MONTH
+   STARTS (TIMESTAMP(CURRENT_DATE) + INTERVAL 1 DAY + INTERVAL 1 HOUR)
+   DO
+       CALL create_monthly_rents();
+   ```
+3. **Re-enable Event Scheduler**
+   ```sql
+   SET GLOBAL event_scheduler = ON;
+   ```
+
+#### Checking Event Status
+
+1. **View Event Status**
+   ```sql
+   SHOW EVENTS;
+   ```
+2. **Check Last Run Time**
+   ```sql
+   SELECT 
+       EVENT_NAME,
+       LAST_EXECUTED,
+       STATUS
+   FROM information_schema.EVENTS
+   WHERE EVENT_NAME = 'monthly_rent_creation';
+   ```
+
+### Security Considerations
+
+- Ensure your database user has the necessary privileges for events and procedures.
+- Regularly review and update access controls.

@@ -1,0 +1,55 @@
+body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background: #f8f8f8;
+}
+.a4-container {
+    width: 210mm;
+    min-height: 297mm;
+    margin: 20px auto;
+    background: #fff;
+    box-shadow: 0 0 8px #bbb;
+    padding: 30px 30px 30px 30px;
+    box-sizing: border-box;
+}
+
+.receipt-title {
+    text-align: center;
+    font-weight: bold;
+    font-size: 1.3em;
+    margin-bottom: 20px;
+    margin-top: 100px;
+}
+.receipt-date {
+    text-align: right;
+    font-size: 1em;
+    margin-bottom: 20px;
+}
+.receipt-table {
+    width: 85%;
+    margin: 0 auto 30px auto;
+    font-size: 1.1em;
+}
+.bold{
+    font-weight: bold;
+}
+.receipt-table td {
+    padding: 4px 7px;
+}
+.footer {
+    width: 100%;
+    margin-top: 200px;
+    font-size: 1em;
+}
+.footer .right {
+    float: right;
+}
+.footer .center {
+    text-align: center;
+    clear: both;
+    margin-top: 40px;
+}
+@media print {
+    .no-print { display: none; }
+    body { background: #fff; }
+    .a4-container { box-shadow: none; margin: 0; }
+}

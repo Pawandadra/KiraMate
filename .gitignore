@@ -1,0 +1,54 @@
+# Environment files
+.env
+
+# Logs
+logs/
+*.log
+
+# Uploads
+uploads/
+
+# Dependencies
+vendor/
+composer.lock
+
+# IDE files
+.idea/
+.vscode/
+*.sublime-*
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Cache files
+*.cache
+*.tmp
+
+# Backup files
+*.bak
+*.backup
+*~
+
+# Compiled files
+*.com
+*.class
+*.dll
+*.exe
+*.o
+*.so
+
+# Package files
+*.7z
+*.dmg
+*.gz
+*.iso
+*.jar
+*.rar
+*.tar
+*.zip 

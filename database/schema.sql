@@ -40,6 +40,17 @@ CREATE TABLE `opening_balances` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
+-- Dumping data for table `opening_balances`
+--
+
+LOCK TABLES `opening_balances` WRITE;
+/*!40000 ALTER TABLE `opening_balances` DISABLE KEYS */;
+set autocommit=0;
+/*!40000 ALTER TABLE `opening_balances` ENABLE KEYS */;
+UNLOCK TABLES;
+commit;
+
+--
 -- Table structure for table `payments`
 --
 
@@ -63,6 +74,17 @@ CREATE TABLE `payments` (
   CONSTRAINT `payments_ibfk_1` FOREIGN KEY (`shop_id`) REFERENCES `shops` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `payments`
+--
+
+LOCK TABLES `payments` WRITE;
+/*!40000 ALTER TABLE `payments` DISABLE KEYS */;
+set autocommit=0;
+/*!40000 ALTER TABLE `payments` ENABLE KEYS */;
+UNLOCK TABLES;
+commit;
 
 --
 -- Table structure for table `rents`
@@ -90,6 +112,17 @@ CREATE TABLE `rents` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
+-- Dumping data for table `rents`
+--
+
+LOCK TABLES `rents` WRITE;
+/*!40000 ALTER TABLE `rents` DISABLE KEYS */;
+set autocommit=0;
+/*!40000 ALTER TABLE `rents` ENABLE KEYS */;
+UNLOCK TABLES;
+commit;
+
+--
 -- Table structure for table `shop_documents`
 --
 
@@ -109,6 +142,17 @@ CREATE TABLE `shop_documents` (
   CONSTRAINT `shop_documents_ibfk_1` FOREIGN KEY (`shop_id`) REFERENCES `shops` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `shop_documents`
+--
+
+LOCK TABLES `shop_documents` WRITE;
+/*!40000 ALTER TABLE `shop_documents` DISABLE KEYS */;
+set autocommit=0;
+/*!40000 ALTER TABLE `shop_documents` ENABLE KEYS */;
+UNLOCK TABLES;
+commit;
 
 --
 -- Table structure for table `shops`
@@ -137,6 +181,17 @@ CREATE TABLE `shops` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
+-- Dumping data for table `shops`
+--
+
+LOCK TABLES `shops` WRITE;
+/*!40000 ALTER TABLE `shops` DISABLE KEYS */;
+set autocommit=0;
+/*!40000 ALTER TABLE `shops` ENABLE KEYS */;
+UNLOCK TABLES;
+commit;
+
+--
 -- Table structure for table `tenant_documents`
 --
 
@@ -156,6 +211,17 @@ CREATE TABLE `tenant_documents` (
   CONSTRAINT `tenant_documents_ibfk_1` FOREIGN KEY (`tenant_id`) REFERENCES `tenants` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `tenant_documents`
+--
+
+LOCK TABLES `tenant_documents` WRITE;
+/*!40000 ALTER TABLE `tenant_documents` DISABLE KEYS */;
+set autocommit=0;
+/*!40000 ALTER TABLE `tenant_documents` ENABLE KEYS */;
+UNLOCK TABLES;
+commit;
 
 --
 -- Table structure for table `tenants`
@@ -184,6 +250,17 @@ CREATE TABLE `tenants` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
+-- Dumping data for table `tenants`
+--
+
+LOCK TABLES `tenants` WRITE;
+/*!40000 ALTER TABLE `tenants` DISABLE KEYS */;
+set autocommit=0;
+/*!40000 ALTER TABLE `tenants` ENABLE KEYS */;
+UNLOCK TABLES;
+commit;
+
+--
 -- Table structure for table `users`
 --
 
@@ -205,8 +282,21 @@ CREATE TABLE `users` (
   UNIQUE KEY `email` (`email`),
   KEY `idx_username` (`username`),
   KEY `idx_email` (`email`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `users`
+--
+
+LOCK TABLES `users` WRITE;
+/*!40000 ALTER TABLE `users` DISABLE KEYS */;
+set autocommit=0;
+INSERT INTO `users` VALUES
+(1,'admin','admin@example.com','$2y$10$gbBSoc6befqt8qZ5sc/VLeYuZ1hT7r.j03bpBOArFefdP8W9H.JPm','admin',1,NULL,'2025-05-25 12:55:56','2025-05-25 12:57:02');
+/*!40000 ALTER TABLE `users` ENABLE KEYS */;
+UNLOCK TABLES;
+commit;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -217,4 +307,4 @@ CREATE TABLE `users` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*M!100616 SET NOTE_VERBOSITY=@OLD_NOTE_VERBOSITY */;
 
--- Dump completed on 2025-05-25 18:08:41
+-- Dump completed on 2025-05-25 18:28:20

@@ -65,7 +65,7 @@ A comprehensive web-based solution for managing shop rentals, tenant information
 
 1. Clone the repository:
 ```bash
-git clone [repository-url]
+git clone https://github.com/Pawandadra/KiraMate---Shop-Rent-Management-System.git
 cd rent_manager
 ```
 
@@ -83,7 +83,7 @@ FLUSH PRIVILEGES;
 
 4. Import the database schema:
 ```bash
-mysql -u [username] -p rent_manager < database/schema.sql
+mysql -u rentmgr -p rent_manager < database/schema.sql
 ```
 
 5. Configure the environment:
@@ -204,10 +204,10 @@ To customize the letterhead and logo for your organization:
 2. **Letterhead Text**:
    - Open `public/letterhead.php`
    - Update the following details:
-     ```php
-     <div class="lh-text">
-        <h2> (Place Your Company Name Here) </h2>
-        <p> (Place Your Address Here) </p>
-    </div>
-     ```
+   ```php
+      <div class="lh-text">
+         <h2> (Place Your Company Name Here) </h2>
+         <p> (Place Your Address Here) </p>
+      </div>
+   ```
    - The changes will reflect in all receipts and reports.

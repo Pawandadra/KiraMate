@@ -330,3 +330,10 @@ The system includes an automated rent creation feature that generates rent entri
 
 - Ensure your database user has the necessary privileges for events and procedures.
 - Regularly review and update access controls.
+
+## Default Credentials
+
+- **Username:** admin
+- **Password:** admin123
+
+> ⚠️ **Important:** For security, please change the default admin password after your first login.

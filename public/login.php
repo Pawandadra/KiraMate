@@ -8,7 +8,7 @@ Security::init();
 
 // Check if already logged in
 if (Security::isAuthenticated()) {
-    header('Location: index.php');
+    header('Location: ' . BASE_PATH . '/index.php');
     exit;
 }
 
@@ -34,7 +34,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 } else {
                     Security::login($user['id'], $user);
                     Logger::info("User logged in: {$user['username']}");
-                    header('Location: index.php');
+                    header('Location: ' . BASE_PATH . '/index.php');
                     exit;
                 }
             } else {
@@ -105,7 +105,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <?php endif; ?>
         <div class="login-card">
             <div class="login-header">
-                <img src="/assets/images/logo.png" alt="Logo">
+                <img src="<?php echo BASE_PATH; ?>/assets/images/logo.png" alt="Logo" onerror="this.src='<?php echo BASE_PATH; ?>/assets/images/default-logo.png'">
                 <h2><?php echo htmlspecialchars(APP_NAME); ?></h2>
             </div>
             

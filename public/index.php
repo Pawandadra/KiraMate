@@ -11,6 +11,9 @@ Security::requireLogin();
 // Log page access
 Logger::info("Page accessed: " . $_SERVER['REQUEST_URI']);
 
+// Add base path to all asset URLs
+$asset_path = BASE_PATH . '/assets';
+
 $error = null;
 $summary = [];
 try {
@@ -64,8 +67,10 @@ try {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KiraMate - Shop Rent Management System</title>
+    <title>Dashboard - <?php echo htmlspecialchars(APP_NAME); ?></title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="<?php echo $asset_path; ?>/css/style.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css">
     <style>
     table.dataTable td.dataTables_empty {

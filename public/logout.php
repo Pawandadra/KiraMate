@@ -16,7 +16,7 @@ session_unset();
 session_destroy();
 
 // Redirect to login page with success message if any
-$redirect_url = "/login.php";
+$redirect_url = BASE_PATH . "/login.php";
 if ($success_message) {
     $redirect_url .= "?success=" . urlencode($success_message);
 }

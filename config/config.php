@@ -49,8 +49,9 @@ define('DB_USER', Config::get('DB_USER'));
 define('DB_PASS', Config::get('DB_PASS'));
 
 // Application configuration
-define('APP_NAME', Config::get('APP_NAME', 'Rent Manager'));
-define('APP_URL', Config::get('APP_URL', 'http://localhost'));
+define('APP_NAME', Config::get('APP_NAME', 'KiraMate'));
+define('APP_URL', Config::get('APP_URL', 'http://localhost/kiramate'));
+define('BASE_PATH', '/kiramate');
 define('UPLOAD_DIR', __DIR__ . '/../public/uploads');
 
 // Create upload directories if they don't exist

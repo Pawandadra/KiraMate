@@ -53,7 +53,7 @@ class Security {
 
     public static function requireLogin() {
         if (!self::isAuthenticated() || !self::checkSessionTimeout()) {
-            header('Location: /login.php');
+            header('Location: ' . BASE_PATH . '/login.php');
             exit;
         }
     }

@@ -67,30 +67,30 @@ $isAdmin = Security::isAdmin();
 </style>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container">
-        <a class="navbar-brand" href="/index.php">KiraMate</a>
+        <a class="navbar-brand" href="<?php echo BASE_PATH; ?>/index.php">KiraMate</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav me-auto">
                 <li class="nav-item">
-                    <a class="nav-link<?php if($section === 'rents') echo ' active'; ?>" href="/rents/index.php">Rents</a>
+                    <a class="nav-link<?php if($section === 'rents') echo ' active'; ?>" href="<?php echo BASE_PATH; ?>/rents/index.php">Rents</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link<?php if($section === 'payments') echo ' active'; ?>" href="/payments/index.php">Payments</a>
+                    <a class="nav-link<?php if($section === 'payments') echo ' active'; ?>" href="<?php echo BASE_PATH; ?>/payments/index.php">Payments</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link<?php if($section === 'shops') echo ' active'; ?>" href="/shops/index.php">Shops</a>
+                    <a class="nav-link<?php if($section === 'shops') echo ' active'; ?>" href="<?php echo BASE_PATH; ?>/shops/index.php">Shops</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link<?php if($section === 'tenants') echo ' active'; ?>" href="/tenants/index.php">Tenants</a>
+                    <a class="nav-link<?php if($section === 'tenants') echo ' active'; ?>" href="<?php echo BASE_PATH; ?>/tenants/index.php">Tenants</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link<?php if($section === 'opening_balances') echo ' active'; ?>" href="/opening_balances/index.php">Opening Balances</a>
+                    <a class="nav-link<?php if($section === 'opening_balances') echo ' active'; ?>" href="<?php echo BASE_PATH; ?>/opening_balances/index.php">Opening Balances</a>
                 </li>
                 <?php if ($isAdmin): ?>
                 <li class="nav-item">
-                    <a class="nav-link<?php if($section === 'admin') echo ' active'; ?>" href="/admin/users/index.php">
+                    <a class="nav-link<?php if($section === 'admin') echo ' active'; ?>" href="<?php echo BASE_PATH; ?>/admin/users/index.php">
                         <i class="bi bi-gear"></i> Management
                     </a>
                 </li>
@@ -103,9 +103,9 @@ $isAdmin = Security::isAdmin();
                             <i class="bi bi-person-circle"></i> <?php echo htmlspecialchars($currentUser['username']); ?>
                         </a>
                         <ul class="dropdown-menu dropdown-menu-end">
-                            <li><a class="dropdown-item" href="/change_password.php"><i class="bi bi-key"></i> Change Password</a></li>
+                            <li><a class="dropdown-item" href="<?php echo BASE_PATH; ?>/change_password.php"><i class="bi bi-key"></i> Change Password</a></li>
                             <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item" href="/logout.php"><i class="bi bi-box-arrow-right"></i> Logout</a></li>
+                            <li><a class="dropdown-item" href="<?php echo BASE_PATH; ?>/logout.php"><i class="bi bi-box-arrow-right"></i> Logout</a></li>
                         </ul>
                     </li>
                 <?php endif; ?>

@@ -195,7 +195,7 @@ if ($shop_id <= 0) {
                                                             <div class="mt-2">
                                                                 <a href="/uploads/shop_documents/<?php echo htmlspecialchars($doc['file_path']); ?>" 
                                                                    class="btn btn-sm btn-primary" target="_blank">
-                                                                    <i class="bi bi-download"></i> Download
+                                                                    <i class="bi bi-eye"></i> View
                                                                 </a>
                                                             </div>
                                                         </div>

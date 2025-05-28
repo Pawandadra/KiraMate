@@ -65,8 +65,8 @@ A comprehensive web-based solution for managing shop rentals, tenant information
 
 1. Clone the repository:
 ```bash
-git clone https://github.com/Pawandadra/KiraMate---Shop-Rent-Management-System.git
-cd rent_manager
+git clone https://github.com/Pawandadra/KiraMate.git
+cd Kiramate
 ```
 
 2. Create a MySQL database:
@@ -99,10 +99,7 @@ mysql -u rentmgr -p rent_manager < database/schema.sql
 
 7. Create required directories:
 ```bash
-mkdir -p public/uploads/tenant_documents
-mkdir -p public/uploads/shop_documents
-mkdir -p logs
-chmod 755 public/uploads logs
+sudo php /var/www/html/Kiramate/config/config.php
 ```
 
 ## Configuration
@@ -112,11 +109,7 @@ chmod 755 public/uploads logs
 - `DB_NAME`: Database name
 - `DB_USER`: Database username
 - `DB_PASS`: Database password
-- `APP_NAME`: Application name
-- `APP_URL`: Application URL
 - `APP_TIMEZONE`: Application timezone
-- `APP_ENV`: Environment (development/production)
-- `APP_DEBUG`: Debug mode (true/false)
 
 ### Directory Structure
 ```
@@ -142,7 +135,10 @@ rent_manager/
 
 ## Usage
 
-1. Access the application through your web browser
+1. Access the application through your web browser on
+```html
+   <p>https://your-domain-name/kiramate</p>
+```
 2. Log in with your credentials
 3. Navigate through the dashboard to access different features
 4. Use the reporting system to generate various reports
@@ -300,10 +296,11 @@ The system includes an automated rent creation feature that generates rent entri
 2. **Re-create the Event** (if dropped)
    ```sql
    CREATE EVENT monthly_rent_creation
-   ON SCHEDULE EVERY 1 MONTH
-   STARTS (TIMESTAMP(CURRENT_DATE) + INTERVAL 1 DAY + INTERVAL 1 HOUR)
+   ON SCHEDULE
+      EVERY 1 MONTH
+      STARTS (DATE_FORMAT(CURRENT_DATE(), '%Y-%m-01') + INTERVAL 1 HOUR)
    DO
-       CALL create_monthly_rents();
+      CALL create_monthly_rents();
    ```
 3. **Re-enable Event Scheduler**
    ```sql

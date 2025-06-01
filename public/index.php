@@ -25,35 +25,51 @@ try {
         // Opening balance (sum of all opening balances for this shop)
         $ob = $db->query("SELECT SUM(opening_balance) as ob_sum FROM opening_balances WHERE shop_id = ?", [$shop_id])->fetch();
         $opening_balance = $ob ? (float)$ob['ob_sum'] : 0.0;
-        // Paid amount (sum of all payments for this shop)
-        $paid = $db->query("SELECT SUM(amount) as paid_sum FROM payments WHERE shop_id = ?", [$shop_id])->fetch();
+
+        // Check if opening balance is paid
+        $ob_status = $db->query(
+            "SELECT COUNT(*) as unpaid_count 
+             FROM opening_balances ob 
+             WHERE ob.shop_id = ? 
+             AND NOT EXISTS (
+                 SELECT 1 FROM payments p 
+                 WHERE p.shop_id = ob.shop_id 
+                 AND p.ob_financial_year = ob.financial_year
+             )",
+            [$shop_id]
+        )->fetch();
+        $ob_status_text = $ob_status['unpaid_count'] > 0 ? '(Pending)' : '(Paid)';
+
+        // Paid amount (sum of all rent payments for this shop, excluding opening balance payments)
+        $paid = $db->query(
+            "SELECT SUM(amount) as paid_sum 
+             FROM payments 
+             WHERE shop_id = ? 
+             AND ob_financial_year IS NULL",
+            [$shop_id]
+        )->fetch();
         $paid_amount = $paid ? (float)$paid['paid_sum'] : 0.0;
-        // Remaining unpaid rents
+
+        // Remaining unpaid rents (excluding opening balance)
         $remaining = $db->query(
             "SELECT SUM(r.final_rent) as remain_sum
              FROM rents r
              WHERE r.shop_id = ?
              AND NOT EXISTS (
-                 SELECT 1 FROM payments p WHERE p.shop_id = r.shop_id AND p.rent_year = r.rent_year AND p.rent_month = r.rent_month
+                 SELECT 1 FROM payments p 
+                 WHERE p.shop_id = r.shop_id 
+                 AND p.rent_year = r.rent_year 
+                 AND p.rent_month = r.rent_month
              )",
             [$shop_id]
         )->fetch();
         $remaining_amount = $remaining ? (float)$remaining['remain_sum'] : 0.0;
-        // Add unpaid opening balances
-        $unpaid_ob = $db->query(
-            "SELECT SUM(ob.opening_balance) as unpaid_ob_sum
-             FROM opening_balances ob
-             WHERE ob.shop_id = ?
-             AND NOT EXISTS (
-                 SELECT 1 FROM payments p WHERE p.shop_id = ob.shop_id AND p.ob_financial_year = ob.financial_year
-             )",
-            [$shop_id]
-        )->fetch();
-        $remaining_amount += $unpaid_ob && $unpaid_ob['unpaid_ob_sum'] ? (float)$unpaid_ob['unpaid_ob_sum'] : 0.0;
+
         $summary[] = [
             'shop_no' => $shop['shop_no'],
             'tenant_name' => $shop['tenant_name'],
             'opening_balance' => $opening_balance,
+            'ob_status' => $ob_status_text,
             'remaining_amount' => $remaining_amount,
             'paid_amount' => $paid_amount
         ];
@@ -120,8 +136,8 @@ try {
                                 <th>Shop No</th>
                                 <th>Tenant</th>
                                 <th>Opening Balance</th>
-                                <th>Remaining Amount</th>
-                                <th>Paid Amount</th>
+                                <th>Remaining Rent</th>
+                                <th>Paid Rent</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -130,7 +146,16 @@ try {
                                     <tr>
                                         <td><?php echo htmlspecialchars($row['shop_no']); ?></td>
                                         <td><?php echo htmlspecialchars($row['tenant_name'] ?? '-'); ?></td>
-                                        <td><?php echo number_format($row['opening_balance'], 2); ?></td>
+                                        <td>
+                                            <?php if ($row['opening_balance'] > 0): ?>
+                                                <?php echo number_format($row['opening_balance'], 2); ?> 
+                                                <span class="badge <?php echo $row['ob_status'] === '(Paid)' ? 'bg-success' : 'bg-warning'; ?>">
+                                                    <?php echo $row['ob_status']; ?>
+                                                </span>
+                                            <?php else: ?>
+                                                -
+                                            <?php endif; ?>
+                                        </td>
                                         <td><?php echo number_format($row['remaining_amount'], 2); ?></td>
                                         <td><?php echo number_format($row['paid_amount'], 2); ?></td>
                                     </tr>

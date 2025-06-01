@@ -49,7 +49,7 @@ A comprehensive web-based solution for managing shop rentals, tenant information
 ## Technology Stack
 
 ### Backend
-- PHP 8.0+
+- PHP 8.4
 - MySQL 8.0+
 - Nginx web server
 

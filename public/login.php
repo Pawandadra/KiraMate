@@ -32,6 +32,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 if (!$user['is_active']) {
                     $error = 'Your account is inactive. Please contact administrator.';
                 } else {
+                    // Update last login timestamp
+                    $db->query(
+                        'UPDATE users SET last_login = CURRENT_TIMESTAMP WHERE id = ?',
+                        [$user['id']]
+                    );
+                    
                     Security::login($user['id'], $user);
                     Logger::info("User logged in: {$user['username']}");
                     header('Location: ' . BASE_PATH . '/index.php');

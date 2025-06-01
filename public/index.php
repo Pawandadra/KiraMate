@@ -38,7 +38,7 @@ try {
              )",
             [$shop_id]
         )->fetch();
-        $ob_status_text = $ob_status['unpaid_count'] > 0 ? '(Pending)' : '(Paid)';
+        $ob_status_text = $ob_status['unpaid_count'] > 0 ? 'Pending' : 'Paid';
 
         // Paid amount (sum of all rent payments for this shop, excluding opening balance payments)
         $paid = $db->query(
@@ -149,7 +149,7 @@ try {
                                         <td>
                                             <?php if ($row['opening_balance'] > 0): ?>
                                                 <?php echo number_format($row['opening_balance'], 2); ?> 
-                                                <span class="badge <?php echo $row['ob_status'] === '(Paid)' ? 'bg-success' : 'bg-warning'; ?>">
+                                                <span class="badge <?php echo $row['ob_status'] === 'Paid' ? 'bg-success' : 'bg-warning'; ?>">
                                                     <?php echo $row['ob_status']; ?>
                                                 </span>
                                             <?php else: ?>

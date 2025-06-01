@@ -37,7 +37,7 @@ try {
 <head>
     <meta charset="UTF-8">
     <title>Payment Receipt</title>
-    <link rel="stylesheet" href="/assets/css/receipt.css">
+    <link rel="stylesheet" href="<?php echo BASE_PATH; ?>/assets/css/receipt.css">
 </head>
 <body>
     <div class="a4-container">

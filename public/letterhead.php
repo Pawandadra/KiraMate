@@ -1,5 +1,5 @@
 <div class="letterhead">
-    <img src="/assets/images/logo.png" alt="Logo">
+    <img src="<?php echo BASE_PATH; ?>/assets/images/logo.png" alt="Logo">
     <div class="lh-text">
         <h2> (Place Your Company Name Here) </h2>
         <p> (Place Your Address Here) </p>

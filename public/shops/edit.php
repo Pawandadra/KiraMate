@@ -361,7 +361,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                             <div class="col-md-4 mb-3">
                                                 <div class="document-item">
                                                     <div class="document-actions">
-                                                        <a href="/uploads/shop_documents/<?php echo $doc['file_path']; ?>" 
+                                                        <a href="<?php echo BASE_PATH; ?>/uploads/shop_documents/<?php echo $doc['file_path']; ?>" 
                                                            class="btn btn-sm btn-info" target="_blank" title="View">
                                                             <i class="bi bi-eye"></i>
                                                         </a>
@@ -414,7 +414,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <script>
         var SHOP_EDIT_ID = <?php echo (int)$id; ?>;
     </script>
-    <script src="/assets/js/shop_validation.js"></script>
+    <script src="<?php echo BASE_PATH; ?>/assets/js/shop_validation.js"></script>
     <script>
         // Update tenant info when tenant is selected
         document.getElementById('tenant_id').addEventListener('change', function() {

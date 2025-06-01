@@ -275,7 +275,7 @@ function getUploadErrorMessage($error_code) {
     <title>Add New Tenant - Shop Rent Management System</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css" rel="stylesheet">
-    <link href="/assets/css/common.css" rel="stylesheet">
+    <link href="<?php echo BASE_PATH; ?>/assets/css/common.css" rel="stylesheet">
     <style>
     .table, .table th, .table td {
         font-size: 1rem;
@@ -390,7 +390,7 @@ function getUploadErrorMessage($error_code) {
     <script>
         var TENANT_EDIT_ID = null;
     </script>
-    <script src="/assets/js/tenant_validation.js"></script>
+    <script src="<?php echo BASE_PATH; ?>/assets/js/tenant_validation.js"></script>
     <script>
     document.addEventListener('DOMContentLoaded', function() {
         setTimeout(function() {

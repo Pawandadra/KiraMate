@@ -151,7 +151,7 @@ try {
                                                     Size: <?php echo number_format($doc['file_size'] / 1024 / 1024, 2); ?> MB
                                                 </p>
                                                 <?php if (strpos($doc['file_type'], 'image/') === 0): ?>
-                                                    <img src="/uploads/tenant_documents/<?php echo $doc['file_path']; ?>" 
+                                                    <img src="<?php echo BASE_PATH; ?>/uploads/tenant_documents/<?php echo $doc['file_path']; ?>" 
                                                          class="document-preview img-thumbnail">
                                                 <?php else: ?>
                                                     <div class="text-center">
@@ -159,7 +159,7 @@ try {
                                                     </div>
                                                 <?php endif; ?>
                                                 <div class="mt-2">
-                                                    <a href="/uploads/tenant_documents/<?php echo $doc['file_path']; ?>" 
+                                                    <a href="<?php echo BASE_PATH; ?>/uploads/tenant_documents/<?php echo $doc['file_path']; ?>" 
                                                        class="btn btn-sm btn-primary" target="_blank">
                                                         <i class="bi bi-eye"></i> View
                                                     </a>

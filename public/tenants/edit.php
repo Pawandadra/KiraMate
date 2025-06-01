@@ -450,7 +450,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                                     </div>
                                                 </div>
                                                 <div class="document-actions">
-                                                    <a href="/uploads/tenant_documents/<?php echo $doc['file_path']; ?>" 
+                                                    <a href="<?php echo BASE_PATH; ?>/uploads/tenant_documents/<?php echo $doc['file_path']; ?>" 
                                                        class="btn btn-sm btn-primary" target="_blank">
                                                         <i class="bi bi-eye"></i>
                                                     </a>
@@ -492,7 +492,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <script>
         var TENANT_EDIT_ID = <?php echo (int)$id; ?>;
     </script>
-    <script src="/assets/js/tenant_validation.js"></script>
+    <script src="<?php echo BASE_PATH; ?>/assets/js/tenant_validation.js"></script>
     <script>
         // File upload preview
         document.getElementById('documents').addEventListener('change', function(e) {

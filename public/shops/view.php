@@ -57,7 +57,7 @@ if ($shop_id <= 0) {
     <title>View Shop - Shop Rent Management System</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css" rel="stylesheet">
-    <link href="/assets/css/common.css" rel="stylesheet">
+    <link href="<?php echo BASE_PATH; ?>/assets/css/common.css" rel="stylesheet">
     <style>
     .table, .table th, .table td {
         font-size: 1rem;
@@ -183,7 +183,7 @@ if ($shop_id <= 0) {
                                                     <div class="card">
                                                         <div class="card-body">
                                                             <?php if (strpos($doc['file_type'], 'image/') === 0): ?>
-                                                                <img src="/uploads/shop_documents/<?php echo htmlspecialchars($doc['file_path']); ?>" 
+                                                                <img src="<?php echo BASE_PATH; ?>/uploads/shop_documents/<?php echo htmlspecialchars($doc['file_path']); ?>" 
                                                                      class="img-fluid mb-2" alt="Document preview">
                                                             <?php else: ?>
                                                                 <i class="bi bi-file-pdf fs-1 text-danger"></i>
@@ -193,7 +193,7 @@ if ($shop_id <= 0) {
                                                                 <?php echo number_format($doc['file_size'] / 1024, 2); ?> KB
                                                             </small>
                                                             <div class="mt-2">
-                                                                <a href="/uploads/shop_documents/<?php echo htmlspecialchars($doc['file_path']); ?>" 
+                                                                <a href="<?php echo BASE_PATH; ?>/uploads/shop_documents/<?php echo htmlspecialchars($doc['file_path']); ?>" 
                                                                    class="btn btn-sm btn-primary" target="_blank">
                                                                     <i class="bi bi-eye"></i> View
                                                                 </a>

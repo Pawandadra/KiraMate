@@ -41,7 +41,7 @@ try {
 <head>
     <meta charset="UTF-8">
     <title>Rent Receipt</title>
-    <link href="/assets/css/receipt.css" rel="stylesheet">
+    <link href="<?php echo BASE_PATH; ?>/assets/css/receipt.css" rel="stylesheet">
 </head>
 <body>
     <div class="a4-container">

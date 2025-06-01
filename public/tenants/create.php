@@ -315,7 +315,7 @@ function getUploadErrorMessage($error_code) {
                             <div class="alert alert-success"> <?php echo htmlspecialchars($success); ?> </div>
                         <?php endif; ?>
 
-                        <form method="POST" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" enctype="multipart/form-data" id="tenantForm">
+                        <form method="POST" action="<?php echo BASE_PATH; ?>/tenants/create.php" enctype="multipart/form-data" id="tenantForm">
                             <div class="mb-3">
                                 <label for="tenant_id" class="form-label">Tenant ID *</label>
                                 <input type="text" class="form-control" id="tenant_id" name="tenant_id" 

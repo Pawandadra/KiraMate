@@ -232,7 +232,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             </div>
                         <?php endif; ?>
 
-                        <form method="POST" action="" enctype="multipart/form-data">
+                        <form method="POST" action="<?php echo BASE_PATH; ?>/shops/create.php" enctype="multipart/form-data">
                             <div class="mb-3">
                                 <label for="shop_no" class="form-label">Shop Number *</label>
                                 <input type="text" class="form-control" id="shop_no" name="shop_no" 

@@ -143,7 +143,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                             </div>
                         <?php endif; ?>
-                        <form method="POST" action="" autocomplete="off">
+                        <form method="POST" action="<?php echo BASE_PATH; ?>/payments/create.php" autocomplete="off">
                             <div class="mb-3 position-relative">
                                 <label for="shop_no" class="form-label">Shop Number *</label>
                                 <input type="text" class="form-control" id="shop_no" name="shop_no" required value="<?php echo htmlspecialchars($_POST['shop_no'] ?? ''); ?>" autocomplete="off">
@@ -202,6 +202,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </div>
     </div>
     <script>
+        // Define BASE_PATH for JavaScript
+        const BASE_PATH = '<?php echo BASE_PATH; ?>';
+        
         // Auto-hide alerts after 5 seconds
         document.addEventListener('DOMContentLoaded', function() {
             setTimeout(function() {
@@ -261,11 +264,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             if (!shopNo) return;
             try {
                 // Fetch pending rent months
-                const response = await fetch(`/api/get_pending_rent_months.php?shop_no=${encodeURIComponent(shopNo)}`);
+                const response = await fetch(`${BASE_PATH}/api/get_pending_rent_months.php?shop_no=${encodeURIComponent(shopNo)}`);
                 const data = await response.json();
+                
                 // Fetch all unpaid opening balances for this shop
-                const obResponse = await fetch(`/api/get_opening_balance.php?shop_no=${encodeURIComponent(shopNo)}`);
+                const obResponse = await fetch(`${BASE_PATH}/api/get_opening_balance.php?shop_no=${encodeURIComponent(shopNo)}`);
                 const obData = await obResponse.json();
+                
                 if (obData && Array.isArray(obData.opening_balances)) {
                     obData.opening_balances.forEach(ob => {
                         const option = document.createElement('option');
@@ -275,6 +280,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         rentMonthSelect.appendChild(option);
                     });
                 }
+                
                 if (data && Array.isArray(data.months)) {
                     data.months.forEach(monthObj => {
                         const option = document.createElement('option');
@@ -283,32 +289,37 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         rentMonthSelect.appendChild(option);
                     });
                 }
-            } catch (e) {}
-        }
-        // Fetch rent amount from rents table or opening balance
-        async function fetchRentAmount() {
-            const shopNo = shopNoInput.value;
-            const rentMonth = document.getElementById('rent_month').value;
-            const rentMonthSelect = document.getElementById('rent_month');
-            if (!shopNo || !rentMonth) return;
-            if (rentMonth.startsWith('OB-')) {
-                // Opening balance
-                // Find the selected option and get its data-ob-amount
-                const selectedOption = rentMonthSelect.options[rentMonthSelect.selectedIndex];
-                const obAmount = selectedOption ? selectedOption.getAttribute('data-ob-amount') : '';
-                document.getElementById('amount').value = obAmount || '';
-            } else {
-                // Normal rent month
-                try {
-                    const response = await fetch(`/api/get_rent_amount.php?shop_no=${encodeURIComponent(shopNo)}&rent_month=${encodeURIComponent(rentMonth)}`);
-                    const data = await response.json();
-                    document.getElementById('amount').value = data.amount || '';
-                } catch (e) {
-                    document.getElementById('amount').value = '';
-                }
+            } catch (error) {
+                console.error('Error fetching rent months:', error);
             }
         }
-        document.getElementById('rent_month').addEventListener('change', fetchRentAmount);
+        // Add event listener for rent month selection
+        document.getElementById('rent_month').addEventListener('change', async function() {
+            const shopNo = shopNoInput.value;
+            const rentMonth = this.value;
+            const amountInput = document.getElementById('amount');
+            
+            if (!shopNo || !rentMonth) {
+                amountInput.value = '';
+                return;
+            }
+
+            try {
+                if (rentMonth.startsWith('OB-')) {
+                    // Handle opening balance
+                    const option = this.options[this.selectedIndex];
+                    amountInput.value = option.getAttribute('data-ob-amount') || '';
+                } else {
+                    // Handle regular rent
+                    const response = await fetch(`${BASE_PATH}/api/get_rent_amount.php?shop_no=${encodeURIComponent(shopNo)}&rent_month=${encodeURIComponent(rentMonth)}`);
+                    const data = await response.json();
+                    amountInput.value = data.amount || '';
+                }
+            } catch (error) {
+                console.error('Error fetching rent amount:', error);
+                amountInput.value = '';
+            }
+        });
     </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>

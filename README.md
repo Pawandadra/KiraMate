@@ -137,7 +137,7 @@ rent_manager/
 
 1. Access the application through your web browser on
 ```html
-   <p>https://your-domain-name/kiramate</p>
+   https://your-domain-name/kiramate
 ```
 2. Log in with your credentials
 3. Navigate through the dashboard to access different features

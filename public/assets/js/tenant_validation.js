@@ -143,10 +143,5 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             }
         }
-        if (!isValid) {
-            e.preventDefault();
-            alert('Please fix the validation errors before submitting the form.');
-            return;
-        }
     });
 }); 

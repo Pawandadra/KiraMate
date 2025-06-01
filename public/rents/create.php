@@ -149,7 +149,7 @@ $currentMonth = date('Y-m');
                             </div>
                         <?php endif; ?>
 
-                        <form method="POST" action="" id="rentForm">
+                        <form method="POST" action="<?php echo BASE_PATH; ?>/rents/create.php" id="rentForm">
                             <div class="mb-3">
                                 <label for="shop_id" class="form-label">Shop Number *</label>
                                 <select class="form-select" id="shop_id" name="shop_id" required>

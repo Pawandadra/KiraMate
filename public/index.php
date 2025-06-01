@@ -26,19 +26,36 @@ try {
         $ob = $db->query("SELECT SUM(opening_balance) as ob_sum FROM opening_balances WHERE shop_id = ?", [$shop_id])->fetch();
         $opening_balance = $ob ? (float)$ob['ob_sum'] : 0.0;
 
-        // Check if opening balance is paid
+        // Check opening balance payment status
         $ob_status = $db->query(
-            "SELECT COUNT(*) as unpaid_count 
+            "SELECT 
+                COUNT(*) as total_count,
+                SUM(CASE WHEN EXISTS (
+                    SELECT 1 FROM payments p 
+                    WHERE p.shop_id = ob.shop_id 
+                    AND p.ob_financial_year = ob.financial_year
+                ) THEN 1 ELSE 0 END) as paid_count
              FROM opening_balances ob 
-             WHERE ob.shop_id = ? 
-             AND NOT EXISTS (
-                 SELECT 1 FROM payments p 
-                 WHERE p.shop_id = ob.shop_id 
-                 AND p.ob_financial_year = ob.financial_year
-             )",
+             WHERE ob.shop_id = ?",
             [$shop_id]
         )->fetch();
-        $ob_status_text = $ob_status['unpaid_count'] > 0 ? 'Pending' : 'Paid';
+
+        // Determine status based on paid vs total count
+        if ($ob_status['total_count'] > 0) {
+            if ($ob_status['paid_count'] == 0) {
+                $ob_status_text = 'Pending';
+                $ob_status_class = 'bg-warning';
+            } elseif ($ob_status['paid_count'] == $ob_status['total_count']) {
+                $ob_status_text = 'Paid';
+                $ob_status_class = 'bg-success';
+            } else {
+                $ob_status_text = 'Partially Paid';
+                $ob_status_class = 'bg-info';
+            }
+        } else {
+            $ob_status_text = '';
+            $ob_status_class = '';
+        }
 
         // Paid amount (sum of all rent payments for this shop, excluding opening balance payments)
         $paid = $db->query(
@@ -70,6 +87,7 @@ try {
             'tenant_name' => $shop['tenant_name'],
             'opening_balance' => $opening_balance,
             'ob_status' => $ob_status_text,
+            'ob_status_class' => $ob_status_class,
             'remaining_amount' => $remaining_amount,
             'paid_amount' => $paid_amount
         ];
@@ -149,7 +167,7 @@ try {
                                         <td>
                                             <?php if ($row['opening_balance'] > 0): ?>
                                                 <?php echo number_format($row['opening_balance'], 2); ?> 
-                                                <span class="badge <?php echo $row['ob_status'] === 'Paid' ? 'bg-success' : 'bg-warning'; ?>">
+                                                <span class="badge <?php echo $row['ob_status_class']; ?>">
                                                     <?php echo $row['ob_status']; ?>
                                                 </span>
                                             <?php else: ?>

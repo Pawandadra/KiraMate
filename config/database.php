@@ -54,7 +54,9 @@ class Database {
     }
 
     public function rollBack() {
-        return $this->pdo->rollBack();
+        if ($this->pdo->inTransaction()) {
+            $this->pdo->rollBack();
+        }
     }
 }
 

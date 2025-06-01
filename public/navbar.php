@@ -89,10 +89,23 @@ $isAdmin = Security::isAdmin();
                     <a class="nav-link<?php if($section === 'opening_balances') echo ' active'; ?>" href="<?php echo BASE_PATH; ?>/opening_balances/index.php">Opening Balances</a>
                 </li>
                 <?php if ($isAdmin): ?>
-                <li class="nav-item">
-                    <a class="nav-link<?php if($section === 'admin') echo ' active'; ?>" href="<?php echo BASE_PATH; ?>/admin/users/index.php">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="managementDropdown" role="button" 
+                       data-bs-toggle="dropdown" aria-expanded="false">
                         <i class="bi bi-gear"></i> Management
                     </a>
+                    <ul class="dropdown-menu" aria-labelledby="managementDropdown">
+                        <li>
+                            <a class="dropdown-item" href="<?php echo BASE_PATH; ?>/admin/users">
+                                <i class="bi bi-people"></i> User Management
+                            </a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item" href="<?php echo BASE_PATH; ?>/admin/settings.php">
+                                <i class="bi bi-sliders"></i> System Settings
+                            </a>
+                        </li>
+                    </ul>
                 </li>
                 <?php endif; ?>
             </ul>

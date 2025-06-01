@@ -105,7 +105,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <?php endif; ?>
         <div class="login-card">
             <div class="login-header">
-                <img src="<?php echo BASE_PATH; ?>/assets/images/logo.png" alt="Logo" onerror="this.src='<?php echo BASE_PATH; ?>/assets/images/default-logo.png'">
+                <img src="<?php echo BASE_PATH; ?>/assets/images/default_logo.png" alt="Logo" onerror="this.src='<?php echo BASE_PATH; ?>/assets/images/default-logo.png'">
                 <h2><?php echo htmlspecialchars(APP_NAME); ?></h2>
             </div>
             

@@ -184,30 +184,6 @@ For support, please contact:
 - Bootstrap team for the frontend framework
 - DataTables for the table functionality
 
-## Customization
-
-### Logo and Letterhead Customization
-
-To customize the letterhead and logo for your organization:
-
-1. **Logo Image**:
-   - Place your organization's logo image in `public/assets/images/logo.png`
-   - Recommended logo size: 150x150 pixels
-   - The logo will appear in:
-     - Receipts
-     - Reports
-
-2. **Letterhead Text**:
-   - Open `public/letterhead.php`
-   - Update the following details:
-   ```php
-      <div class="lh-text">
-         <h2> (Place Your Company Name Here) </h2>
-         <p> (Place Your Address Here) </p>
-      </div>
-   ```
-   - The changes will reflect in all receipts and reports.
-
 ## Rent Automation Setup
 
 The system includes an automated rent creation feature that generates rent entries for all active shops on the 1st of every month. Here's how to set it up:
